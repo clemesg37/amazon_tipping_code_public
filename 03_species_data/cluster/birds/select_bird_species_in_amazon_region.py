@@ -1,0 +1,126 @@
+
+import sys
+import os
+import geopandas as gpd
+import numpy as np
+import rioxarray as rxr
+from rasterio import features
+from shapely.geometry import shape
+from shapely.ops import unary_union
+from pyproj import CRS
+import matplotlib.pyplot as plt
+
+DATA_ROOT = os.environ['AMAZON_DATA_DIR']
+
+species_type = sys.argv[1]
+#species_type = "resident"
+part = sys.argv[2]
+#part = "1"
+
+
+# Select bird data
+bird_data = gpd.read_file(f"{DATA_ROOT}/intermediate/03_species_data/birds/{species_type}/{species_type}_birds_part_{part}.gpkg")
+bird_data["geometry"] = bird_data.geometry.simplify(
+    tolerance=0.05,          
+    preserve_topology=True
+)
+
+# For the resident birds
+
+bird_data = bird_data.drop(columns=['OBJECTID', 'sisid', 'presence', 'origin', 'seasonal',
+       'source', 'compiler', 'data_sens', 'sens_comm', 'dist_comm', 'tax_comm',
+       'generalisd', 'citation', 'yrcompiled', 'yrmodified', 'version'])
+bird_data["geometry"] = bird_data.geometry.make_valid()
+bird_data = bird_data.dissolve(by="sci_name").reset_index()
+
+
+print(len(bird_data["sci_name"].unique()))
+
+### Load Amazon basin mask
+tif_path = f"{DATA_ROOT}/intermediate/01_c_noresm2/amazon_mask/amazon_mask.tif"
+
+mask = rxr.open_rasterio(tif_path).squeeze()
+mask_bool = (mask.values == 1).astype("uint8")
+transform = mask.rio.transform()
+crs = mask.rio.crs
+shapes_gen = features.shapes(mask_bool, transform=transform)
+
+amazon_polygons = [
+    shape(geom)
+    for geom, value in shapes_gen
+    if value == 1
+]
+
+amazon_region = unary_union(amazon_polygons)
+
+# Simplify once (safe for area ratios, big speedup)
+amazon_region = amazon_region.simplify(0.05)
+
+amazon_gdf = gpd.GeoDataFrame(
+    geometry=[amazon_region],
+    crs=crs
+).to_crs("EPSG:4326")
+
+amazon_geom = amazon_gdf.geometry.iloc[0]
+
+# List of species
+bird_data_names = bird_data["sci_name"].unique()
+
+# Dataframe of selected species
+results = []
+
+for idx, row in bird_data.iterrows():
+    species_geom = row.geometry
+
+    if species_geom.is_empty:
+        continue
+
+    if not species_geom.intersects(amazon_geom):
+        print(f"{row['sci_name']}: ratio = 0.000")
+        continue
+
+    # Centroid in lon/lat
+    centroid = species_geom.centroid
+    lon0, lat0 = centroid.x, centroid.y
+
+    # Local Lambert Azimuthal Equal Area projection
+    laea_crs = CRS.from_proj4(
+        f"+proj=laea +lat_0={lat0} +lon_0={lon0} "
+        "+x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
+    )
+
+    # Reproject species & Amazon
+    species_eq = gpd.GeoSeries(
+        [species_geom], crs="EPSG:4326"
+    ).to_crs(laea_crs).make_valid().iloc[0]
+
+    amazon_eq = gpd.GeoSeries(
+        [amazon_geom], crs="EPSG:4326"
+    ).to_crs(laea_crs).make_valid().iloc[0]
+
+    species_area = species_eq.area
+    if species_area == 0:
+        continue
+
+    intersection_area = species_eq.intersection(amazon_eq).area
+    ratio = intersection_area / species_area
+
+    print(f"{row['sci_name']}: ratio = {ratio:.3f}")
+
+    if ratio > 0.3:
+        results.append({
+            "sci_name": row["sci_name"],
+            "ratio": ratio,
+            "area": species_area / 1e6,   
+            "geometry": species_geom      
+        })
+    
+results_gdf = gpd.GeoDataFrame(results, geometry="geometry", crs=bird_data.crs)
+print(results_gdf.head())
+
+# Save list of species for modeling
+save_folder = f"{DATA_ROOT}/intermediate/03_species_data/birds/{species_type}/species_for_modelling/"
+os.makedirs(save_folder, exist_ok=True)
+save_path = os.path.join(save_folder, f"filtered_species_{part}.gpkg")
+results_gdf.to_file(save_path, driver="GPKG")
+print(f"Results saved under {save_path}")

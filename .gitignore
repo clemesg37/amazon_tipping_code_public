@@ -1,0 +1,8 @@
+# Large companion data archive content
+07_postprocess_data/local/sdm_area_change/final_amazon_area_ETresid_updateds.csv
+
+# Generated outputs and temporary files
+**/output/
+**/__pycache__/
+.ipynb_checkpoints/
+*.pyc

@@ -1,0 +1,10 @@
+* text=auto
+
+# Keep code and HPC scripts in Unix format
+*.sh text eol=lf
+*.py text eol=lf
+*.R text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ipynb text eol=lf
