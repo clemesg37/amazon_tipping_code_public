@@ -19,7 +19,7 @@ Step 07 creates reusable postprocessed data. Only the data needed to reproduce a
 
 - Figure 1 receives its compact climate, deforestation, and global SR products in `main_figures/figure_1/local/data/`.
 - Figure 2 reads the copied `results_mean_ETresid/` tree retained under `07_postprocess_data/local/species_richness_from_SDM_projections/data/`.
-- Figure 3 reads `final_amazon_area_ETresid_updateds.csv` from `07_postprocess_data/local/sdm_area_change/`. This large CSV is distributed through the accompanying data ZIP; see that folder's README for extraction instructions.
+- Figure 3 reads `final_amazon_area_ETresid_updated.csv` from `07_postprocess_data/local/sdm_area_change/`. This large CSV is distributed through the accompanying data ZIP; see that folder's README for extraction instructions.
 - Figure 4 reuses the Figure 1 deforestation map and Figure 2 SR inputs.
 
 ## Appendix figures

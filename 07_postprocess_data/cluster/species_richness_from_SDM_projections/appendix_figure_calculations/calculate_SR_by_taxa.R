@@ -23,7 +23,7 @@ terraOptions(progress=1, memfrac=0.8)
 base_path <- file.path(DATA_ROOT, "intermediate", "06_sdm", "models")
 
 species_df <- read.csv(
-file.path(DATA_ROOT, "intermediate", "04_rasterized_species", "full_species_list_amazon_updated.csv")
+file.path(DATA_ROOT, "intermediate", "04_rasterize_species", "full_species_list_amazon_updated.csv")
 )
 
 output_dir <- file.path(DATA_ROOT, "intermediate", "07_postprocess_data", "species_richness_from_SDM_projections", "results_by_species_taxa")

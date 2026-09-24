@@ -54,6 +54,6 @@ area_csv["relative_change_amazon_area_no_dispersal"] = (
 )
 
 area_csv.to_csv(
-    output_dir / "final_amazon_area_ETresid_updateds.csv",
+    output_dir / "final_amazon_area_ETresid_updated.csv",
     index=False,
 )

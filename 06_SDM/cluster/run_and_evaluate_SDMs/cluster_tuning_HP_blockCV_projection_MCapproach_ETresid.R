@@ -35,8 +35,6 @@ models_root <- file.path(DATA_ROOT, "intermediate", "06_sdm", "models")
 selected_species_df <- read.csv(file.path(raster_root, "full_species_list_amazon_updated.csv"))
 
 
-
-
 # Determine type 
 taxon_type <- case_when(
   grepl("amphibian", species_type) ~ "amphibians",

@@ -1,4 +1,4 @@
-# Amazon tipping advances and amplifies biodiversity loss through teleconnected precipitation declines
+# Amazon tipping amplifies biodiversity loss through teleconnected precipitation declines
 
 Clemens Giesen<sup>1</sup>; Nico Wunderling<sup>1,2,3</sup>; Damaris Zurell<sup>4</sup>; Leonie Wenz<sup>1,5</sup>; Maximilian Kotz<sup>1,6,7,*</sup>
 

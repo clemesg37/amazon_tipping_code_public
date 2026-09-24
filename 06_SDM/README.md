@@ -2,7 +2,7 @@
 
 ## Folder overview
 
-This folder creates the Monte Carlo design and trains, evaluates, and projects species distribution models (SDMs). It uses the species-specific bioclimatic rasters from 05, species presence rasters from 04, and the Amazon mask from 01c. One output directory is created per species, containing tuning summaries, final-model evaluation, variable importance, BIOMOD projection artifacts, and area summaries.
+This folder creates the Monte Carlo design and trains, evaluates, and projects species distribution models (SDMs). It uses the species-specific bioclimatic rasters from 05, species presence rasters from 04, and the Amazon mask from 01c. One output directory is created directly per species (with no taxon or seasonality subfolders), containing tuning summaries, final-model evaluation, variable importance, BIOMOD projection artifacts, and area summaries.
 
 ## Scripts
 
@@ -19,7 +19,7 @@ For each species, the workflow loads its historic calibration raster and removes
 
 Four algorithms are tuned and trained: GLM, GAM, RFd, and GBM. Final models use ten train/validation runs. For tipping scenarios, the 100-row MC design selects an algorithm, model run, and precipitation sample for each projection. No-tipping scenarios project all final models deterministically. The code calculates suitable area under no dispersal and full dispersal, both globally and within the Amazon mask.
 
-For birds, this workflow models the resident-bird group only (`birds_resident`). Breeding and non-breeding BirdLife groups are retained in the broader species-data preparation tables, but no SDMs or SDM area summaries were run for them.
+For birds, this workflow models only the resident-bird group (`birds_resident`). Breeding and non-breeding BirdLife groups are retained in the broader species-data preparation tables, but are intentionally excluded from 06. All modelled species therefore use one flat per-species output layout: `models/<species>/`.
 
 
 ## Inputs

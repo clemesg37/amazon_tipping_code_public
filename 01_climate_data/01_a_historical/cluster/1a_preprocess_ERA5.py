@@ -106,8 +106,8 @@ T = T.where(world_mask_binary == 1)
 P = P.where(world_mask_binary == 1)
 
 # Save data sets
-#T.to_netcdf(f"{save_path}T_monthly_1971_2021.nc")
-#P.to_netcdf(f"{save_path}P_monthly_1971_2021.nc")
+#T.to_netcdf(f"{save_path}T_monthly_1961_2021.nc")
+#P.to_netcdf(f"{save_path}P_monthly_1961_2021.nc")
 
 ## 6) Create base year 1980-2014
 base_start = 1980

@@ -13,7 +13,7 @@ This folder creates the historical monthly ERA5 climate baseline used throughout
 
 ## Important calculations
 
-The production script combines daily `tas`, `tasmin`, `tasmax`, and `pr` files; normalizes longitude/latitude coordinates; converts temperature from K to degC and precipitation to mm/day; aggregates to monthly values; applies the ISIMIP land mask; and calculates the 1980--2014 monthly climatology. The local notebook checks units, land masking, and diagnostic plots; it does not create production inputs.
+The production script combines daily `tas`, `tasmin`, `tasmax`, and `pr` files; normalizes longitude/latitude coordinates; converts temperature from K to C and precipitation to mm/day; aggregates to monthly values; applies the ISIMIP land mask; and calculates the 1980--2014 monthly climatology. The local notebook checks units, land masking, and diagnostic plots; it does not create production inputs.
 
 ## Inputs
 

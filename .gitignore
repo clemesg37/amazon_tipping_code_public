@@ -1,5 +1,9 @@
 # Large companion data archive content
-07_postprocess_data/local/sdm_area_change/final_amazon_area_ETresid_updateds.csv
+/07_postprocess_data/local/sdm_area_change/final_amazon_area_ETresid_updated.csv
+
+# Private HPC-only code and diagnostic notebooks
+/hpc_amazon_tipping/
+/backup_checks_on_HPC/
 
 # Generated outputs and temporary files
 **/output/
