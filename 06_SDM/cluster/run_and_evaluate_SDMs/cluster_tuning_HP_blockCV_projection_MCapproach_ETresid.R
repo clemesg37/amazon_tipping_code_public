@@ -23,8 +23,9 @@ print(paste("Species type:", species_type))
 
 DATA_ROOT <- Sys.getenv("AMAZON_DATA_DIR")
 if (DATA_ROOT == "") stop("Set AMAZON_DATA_DIR before running this script.")
-raster_root <- file.path(DATA_ROOT, "intermediate", "04_rasterized_species")
-selected_bioclim_dir <- file.path(DATA_ROOT, "intermediate", "05_selected_bioclimatic_variables", "data")
+raster_root <- file.path(DATA_ROOT, "intermediate", "04_rasterize_species", "rasterized_species")
+selected_species_path <- file.path(DATA_ROOT, "intermediate", "04_rasterize_species", "full_species_list_amazon_updated.csv")
+selected_bioclim_dir <- file.path(DATA_ROOT, "intermediate", "05_variable_selection", "data")
 amazon_mask_path <- file.path(DATA_ROOT, "intermediate", "01_c_noresm2", "amazon_mask", "amazon_mask.tif")
 mc_sample_path <- file.path(DATA_ROOT, "intermediate", "06_sdm", "mc_samples", "MC_sample.csv")
 models_root <- file.path(DATA_ROOT, "intermediate", "06_sdm", "models")
@@ -32,7 +33,7 @@ models_root <- file.path(DATA_ROOT, "intermediate", "06_sdm", "models")
 ##### Choose list of species 
 
 # List of species to include in hyperparamter tuning 
-selected_species_df <- read.csv(file.path(raster_root, "full_species_list_amazon_updated.csv"))
+selected_species_df <- read.csv(selected_species_path)
 
 
 # Determine type 
@@ -216,6 +217,11 @@ for (j in seq_len(nrow(selected_species_set))) {
   
   # Define output folder
   outputFolder <- file.path(custom_directory, species_name_with_point)
+
+  # BIOMOD formulas require a syntactically valid response name. This leaves
+  # existing species unchanged and converts a hyphen, for example
+  # Scinax.x-signatus, to the safe BIOMOD name Scinax.x.signatus.
+  biomod_response_name <- make.names(species_name_with_point)
   
   ############## PART 3: Correct for collinearity ############################
   
@@ -314,7 +320,7 @@ for (j in seq_len(nrow(selected_species_set))) {
     # x and y coordinates of presence data
     resp.xy = as.data.frame(st_coordinates(presence_points_sf)),  
     # Name of the target species
-    resp.name = selected_species_name, 
+    resp.name = biomod_response_name, 
     # Number of pseudo-absence repetitions
     PA.nb.rep = 1,   
     # Number of pseudo-absences (create two sets depending on algorithm)
@@ -568,7 +574,7 @@ for (j in seq_len(nrow(selected_species_set))) {
     # Train and cross validate default model
     TunedOut <- BIOMOD_Modeling(
       bm.format = biomod_data_final_model,
-      modeling.id = selected_species_name,
+      modeling.id = biomod_response_name,
       models = "GLM",
       CV.strategy = 'user.defined',
       CV.user.table = spatial_cv_folds,
@@ -655,7 +661,7 @@ for (j in seq_len(nrow(selected_species_set))) {
     # Train and cross validate default model
     TunedOut <- BIOMOD_Modeling(
       bm.format = biomod_data_final_model,
-      modeling.id = selected_species_name,
+      modeling.id = biomod_response_name,
       models = "GAM",
       CV.strategy = 'user.defined',
       CV.user.table = spatial_cv_folds,
@@ -745,7 +751,7 @@ for (j in seq_len(nrow(selected_species_set))) {
     # Train and cross validate default model
     TunedOut <- BIOMOD_Modeling(
       bm.format = biomod_data_final_model,
-      modeling.id = selected_species_name,
+      modeling.id = biomod_response_name,
       models = "RFd",
       CV.strategy = 'user.defined',
       CV.user.table = spatial_cv_folds,
@@ -849,7 +855,7 @@ for (j in seq_len(nrow(selected_species_set))) {
     # Train and cross validate default model
     TunedOut <- BIOMOD_Modeling(
       bm.format = biomod_data_final_model,
-      modeling.id = selected_species_name,
+      modeling.id = biomod_response_name,
       models = "GBM",
       CV.strategy = 'user.defined',
       CV.user.table = spatial_cv_folds,
@@ -1013,7 +1019,7 @@ for (j in seq_len(nrow(selected_species_set))) {
   
   finalModelOut <- BIOMOD_Modeling(
     bm.format = biomod_data_final_model,
-    modeling.id = selected_species_name,
+    modeling.id = biomod_response_name,
     models = c("GLM", "GAM", "RFd", "GBM"),
     CV.strategy = 'user.defined',
     CV.user.table = myCVtable_final,
@@ -1180,8 +1186,8 @@ for (j in seq_len(nrow(selected_species_set))) {
               cell_size <- cellSize(bin_future_proj, unit = "km")
               
               # Select historical projection for given algorithm and model run 
-              bin_hist_proj_selected <- bin_hist_proj[paste0(species_name_with_point, "_PA1_RUN", model_run, "_", algo)]
-              bin_hist_proj_amazon_selected  <- bin_hist_proj_amazon[paste0(species_name_with_point, "_PA1_RUN", model_run, "_", algo)]
+              bin_hist_proj_selected <- bin_hist_proj[paste0(biomod_response_name, "_PA1_RUN", model_run, "_", algo)]
+              bin_hist_proj_amazon_selected  <- bin_hist_proj_amazon[paste0(biomod_response_name, "_PA1_RUN", model_run, "_", algo)]
               
               # No dispersal (full area)
               no_dispersal_rast <- bin_future_proj * (bin_hist_proj_selected == 1)
@@ -1235,7 +1241,7 @@ for (j in seq_len(nrow(selected_species_set))) {
               bm.mod = finalModelOut,                   
               proj.name = proj_name_future,
               new.env = future_expl_var,
-              selected.models = "all",  
+              models.chosen = "all",  
               metric.binary = "TSS",
               compress = TRUE,
               nb.cpu = nb.cpu

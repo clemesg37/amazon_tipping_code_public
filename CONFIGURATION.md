@@ -33,7 +33,8 @@ $AMAZON_DATA_DIR/
     01_c_noresm2/
     02_bioclimatic_variables/
     03_species_data/
-    04_rasterized_species/
+    04_rasterize_species/
+      rasterized_species/
     05_selected_bioclimatic_variables/
     06_sdm/
     07_postprocess_data/
@@ -46,7 +47,7 @@ $AMAZON_DATA_DIR/
         results_ETresid/
         results_mean_ETresid/
         results_by_species_taxa/
-        results_by_class/
+        results_by_range_size_class/
 ```
 
 Final summary tables and figures will be defined later; they should live in a separate final-results location, not in `intermediate/`.
@@ -85,4 +86,4 @@ $AMAZON_OUTPUT_DIR/
   # Repeat the same structure for every later step with cluster code.
 ```
 
-Slurm templates are versioned in each step’s `cluster/` directory. Generated batch scripts and job logs are external run artifacts and are not versioned.
+Slurm templates are versioned in each step’s `cluster/` directory.

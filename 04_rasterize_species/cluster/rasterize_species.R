@@ -15,7 +15,7 @@ min_pixel <- 50
 DATA_ROOT <- Sys.getenv("AMAZON_DATA_DIR")
 if (DATA_ROOT == "") stop("Set AMAZON_DATA_DIR before running this script.")
 
-base_output_dir <- file.path(DATA_ROOT, "intermediate", "04_rasterized_species")
+base_output_dir <- file.path(DATA_ROOT, "intermediate", "04_rasterize_species", "rasterized_species")
 
 if (grepl("^birds", species_type)) {
   saisonality <- case_when(

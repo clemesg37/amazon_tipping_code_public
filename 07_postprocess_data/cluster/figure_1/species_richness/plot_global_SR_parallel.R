@@ -34,7 +34,7 @@ v <- vect(polygon_data_path)
 # Attribute filters (IUCN standard).
 v <- v[v$presence %in% c(1, 2, 3), ]
 v <- v[v$origin %in% c(1, 2), ]
-v <- v[v$seasonal %in% c(1, 2, 3), ]
+v <- v[v$seasonal == 1, ]
 
 # Keep only species name column to reduce memory.
 v <- v[, "sci_name"]

@@ -2,7 +2,7 @@
 
 ## Folder overview
 
-This folder prepares bird and non-bird distribution polygons for species-distribution modelling. It filters source ranges, divides large datasets into job-sized files, and selects species with at least 30% of their range in the Amazon Basin.
+This folder prepares bird and non-bird distribution polygons for species-distribution modelling. It filters source ranges, divides large datasets into job-sized files, and selects species with more than 30% of their range in the Amazon Basin.
 
 ## Scripts
 
@@ -23,7 +23,8 @@ Source polygons are restricted to extant/possibly extant/probably extant, native
 | Location | Data | Producer/source | Used by |
 | --- | --- | --- | --- |
 | `$AMAZON_DATA_DIR/raw/03_species_ranges/iucn/` | IUCN non-bird shapefiles | External/licensed source | Non-bird preparation |
-| `$AMAZON_DATA_DIR/raw/03_species_ranges/birds/BOTW_2024_2.gpkg` | BirdLife/BOTW ranges | External/licensed source | Bird preparation |
+| `$AMAZON_DATA_DIR/raw/03_species_ranges/birds/BOTW_2024_2.gpkg` | Raw BirdLife/BOTW ranges | External/licensed source; manually staged to `intermediate/03_species_data/birds/` before processing | Bird-data staging |
+| `$AMAZON_DATA_DIR/intermediate/03_species_data/birds/BOTW_2024_2.gpkg` | Staged BirdLife/BOTW ranges | Manual staging from the external/licensed raw source | Bird preparation |
 | `$AMAZON_DATA_DIR/intermediate/01_c_noresm2/amazon_mask/amazon_mask.tif` | Amazon Basin mask | 01c | Amazon-overlap selection |
 
 ## Outputs

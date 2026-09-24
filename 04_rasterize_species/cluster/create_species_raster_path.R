@@ -4,7 +4,7 @@ library(tools)
 DATA_ROOT <- Sys.getenv("AMAZON_DATA_DIR")
 if (DATA_ROOT == "") stop("Set AMAZON_DATA_DIR before running this script.")
 
-raster_root <- file.path(DATA_ROOT, "intermediate", "04_rasterized_species")
+raster_root <- file.path(DATA_ROOT, "intermediate", "04_rasterize_species", "rasterized_species")
 base_paths <- list(
   amphibians = file.path(raster_root, "amphibians"),
   mammals = file.path(raster_root, "mammals"),

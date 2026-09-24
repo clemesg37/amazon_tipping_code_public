@@ -22,9 +22,9 @@ PARTS_BY_SPECIES_TYPE = {
 # Select only the groups to submit in this run. Change this list for a later subgroup.
 SELECTED_SPECIES_TYPES = ["amphibians"]
 
-batch_script_dir = OUTPUT_ROOT / "04_rasterized_species" / "slurm" / "batch_scripts"
-stdout_dir = OUTPUT_ROOT / "04_rasterized_species" / "slurm" / "stdout"
-stderr_dir = OUTPUT_ROOT / "04_rasterized_species" / "slurm" / "stderr"
+batch_script_dir = OUTPUT_ROOT / "04_rasterize_species" / "slurm" / "batch_scripts"
+stdout_dir = OUTPUT_ROOT / "04_rasterize_species" / "slurm" / "stdout"
+stderr_dir = OUTPUT_ROOT / "04_rasterize_species" / "slurm" / "stderr"
 for directory in (batch_script_dir, stdout_dir, stderr_dir):
     directory.mkdir(parents=True, exist_ok=True)
 

@@ -22,7 +22,7 @@ if (DATA_ROOT == "") stop("Set AMAZON_DATA_DIR before running this script.")
 
 ##### Choose list of species 
 
-selected_species_df <- read.csv(file.path(DATA_ROOT, "intermediate", "04_rasterized_species", "full_species_list_amazon_updated.csv"))
+selected_species_df <- read.csv(file.path(DATA_ROOT, "intermediate", "04_rasterize_species", "full_species_list_amazon_updated.csv"))
 
 
 # Determine type 
@@ -156,7 +156,7 @@ sf_use_s2(TRUE)
 crs.wgs84 <- st_crs(4326)  # WGS84 coordinate system
 
 # Base path of rds files
-raster_root <- file.path(DATA_ROOT, "intermediate", "04_rasterized_species")
+raster_root <- file.path(DATA_ROOT, "intermediate", "04_rasterize_species", "rasterized_species")
 base_paths <- list(
   amphibians = file.path(raster_root, "amphibians"),
   mammals = file.path(raster_root, "mammals"),

@@ -19,11 +19,12 @@ The production script calculates NorESM2 temperature anomalies relative to its h
 
 - `$AMAZON_DATA_DIR/intermediate/01_a_historical/`: ERA5 historical temperature and precipitation climatologies from 01a.
 - `$AMAZON_DATA_DIR/intermediate/01_b_precipitation_changes/`: precipitation-change ensembles from 01b.
-- `$AMAZON_DATA_DIR/raw/01_c_noresm2/historical/tas/` and `$AMAZON_DATA_DIR/raw/01_c_noresm2/<ssp>/tas/`: raw NorESM2-MM temperature files.
+- `$AMAZON_DATA_DIR/raw/noresm2/historical/tas/` and `$AMAZON_DATA_DIR/raw/noresm2/<ssp>/tas/`: raw NorESM2-MM temperature files.
 
 ## Outputs
 
-- `$AMAZON_DATA_DIR/intermediate/01_c_noresm2/`: bias-corrected monthly temperature and precipitation, including period means and validation subsets.
+- `$AMAZON_DATA_DIR/intermediate/01_c_noresm2/<ssp>/`: scenario-specific period means used by step 02, organised by `notip`, `tip/no_deforestation`, and `tip/deforestation`.
+- `$AMAZON_DATA_DIR/intermediate/01_c_noresm2/bias_corrected_T_and_P/<ssp>/`: full bias-corrected temperature and precipitation time series, organised by the same scenarios.
 - `$AMAZON_OUTPUT_DIR/01_c_NorESM2/plots/`: diagnostic plots.
 - `$AMAZON_OUTPUT_DIR/01_c_NorESM2/slurm/`: generated batch scripts and job logs.
 
@@ -39,15 +40,16 @@ The production script calculates NorESM2 temperature anomalies relative to its h
 | `$AMAZON_DATA_DIR/intermediate/01_a_historical/T_AMAZON_base_period_historic.nc` | Historical ERA5 monthly temperature climatology | 01a | Delta approach |
 | `$AMAZON_DATA_DIR/intermediate/01_a_historical/P_AMAZON_base_period_historic.nc` | Historical ERA5 monthly precipitation climatology | 01a | Delta approach |
 | `$AMAZON_DATA_DIR/intermediate/01_b_precipitation_changes/amazon_precip_*.nc` | Tipping-model precipitation-change ensembles | 01b | Delta approach |
-| `$AMAZON_DATA_DIR/raw/01_c_noresm2/historical/tas/*.nc` | Historical NorESM2-MM temperatures | External CMIP6 input | Temperature baseline |
-| `$AMAZON_DATA_DIR/raw/01_c_noresm2/<ssp>/tas/*.nc` | Future NorESM2-MM temperatures | External CMIP6 input | Future temperature anomaly |
+| `$AMAZON_DATA_DIR/raw/noresm2/historical/tas/*.nc` | Historical NorESM2-MM temperatures | External CMIP6 input | Temperature baseline |
+| `$AMAZON_DATA_DIR/raw/noresm2/<ssp>/tas/*.nc` | Future NorESM2-MM temperatures | External CMIP6 input | Future temperature anomaly |
 
 ### Outputs
 
 | Location | Data | Produced by | Used by |
 | --- | --- | --- | --- |
 | `$AMAZON_DATA_DIR/intermediate/01_c_noresm2/base_year/T_Tavg_base_year_monthly_1980_2014.nc` | NorESM2 historical monthly temperature baseline | Production script | Delta calculation/validation |
-| `$AMAZON_DATA_DIR/intermediate/01_c_noresm2/<ssp>/` | Bias-corrected temperature and precipitation time series and period means | Production script | 02 |
+| `$AMAZON_DATA_DIR/intermediate/01_c_noresm2/<ssp>/` | Scenario-specific temperature and precipitation period means | Production script | 02 |
+| `$AMAZON_DATA_DIR/intermediate/01_c_noresm2/bias_corrected_T_and_P/<ssp>/` | Full bias-corrected temperature and precipitation time series | Production script | Time-series analyses |
 | `$AMAZON_DATA_DIR/intermediate/01_c_noresm2/local_validation/` | Reduced climate and precipitation subsets | subset script | Local validation |
 | `$AMAZON_OUTPUT_DIR/01_c_NorESM2/plots/` | Scenario-specific diagnostic plots | Production script | Quality control |
 | `$AMAZON_OUTPUT_DIR/01_c_NorESM2/slurm/` | Generated batch scripts, standard output, and error logs | submission workflow | Cluster reproducibility |

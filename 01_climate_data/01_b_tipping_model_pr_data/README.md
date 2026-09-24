@@ -27,7 +27,7 @@ The current script writes one NetCDF ensemble per scenario to `data/PRECIP_CHANG
 
 The included historical input was generated with the model used in Wunderling, N., Sakschewski, B., Rockstrom, J. et al. *Deforestation-induced drying lowers Amazon climate threshold*. **Nature** 654, 114--120 (2026). https://doi.org/10.1038/s41586-026-10456-0
 
-The Article's code-availability statement cites the upstream model code at https://doi.org/10.6084/m9.figshare.28191128. Its interacting dynamical-systems approach is based on PyCascades (Wunderling et al., 2021, *Eur. Phys. J. Spec. Top.* 230, 3163--3176).
+
 ## Detailed input/output inventory
 
 ### Inputs

@@ -22,9 +22,9 @@ The selected cells are then used to crop and mask the historic stack and every f
 
 | Location | Data | Producer/source | Used by |
 | --- | --- | --- | --- |
-| `$AMAZON_DATA_DIR/intermediate/04_rasterized_species/full_species_list_amazon_updated.csv` | Species taxon, bird seasonality, presence-cell count, rasterized area, and size class | 04 | Species and buffer selection |
-| `$AMAZON_DATA_DIR/intermediate/04_rasterized_species/{amphibians,mammals,reptiles}/Selected_species_raster_path_*.rds` | Non-bird species-to-raster lookup tables | 04 | Presence-raster lookup |
-| `$AMAZON_DATA_DIR/intermediate/04_rasterized_species/birds/{resident,breeding,non_breeding}/Selected_species_raster_path_birds_*.rds` | Bird species-to-raster lookup tables | 04 | Presence-raster lookup |
+| `$AMAZON_DATA_DIR/intermediate/04_rasterize_species/full_species_list_amazon_updated.csv` | Species taxon, bird seasonality, presence-cell count, rasterized area, and size class | 04 | Species and buffer selection |
+| `$AMAZON_DATA_DIR/intermediate/04_rasterize_species/rasterized_species/{amphibians,mammals,reptiles}/Selected_species_raster_path_*.rds` | Non-bird species-to-raster lookup tables | 04 | Presence-raster lookup |
+| `$AMAZON_DATA_DIR/intermediate/04_rasterize_species/rasterized_species/birds/{resident,breeding,non_breeding}/Selected_species_raster_path_birds_*.rds` | Bird species-to-raster lookup tables | 04 | Presence-raster lookup |
 | `$AMAZON_DATA_DIR/intermediate/02_bioclimatic_variables/bioclimatic_variables_historic_ERA5_1980_2014.nc` | Historic stack of 14 bioclimatic variables | 02 | Historic extraction |
 | `$AMAZON_DATA_DIR/intermediate/02_bioclimatic_variables/<ssp>/notip/bioclim_vars_ETresid_<period>.nc` | Future no-tipping stack | 02 | Future extraction |
 | `$AMAZON_DATA_DIR/intermediate/02_bioclimatic_variables/<ssp>/tip/<deforestation>/bioclim_vars_ETresid_<period>.nc` | Future tipping stack | 02 | Future extraction |

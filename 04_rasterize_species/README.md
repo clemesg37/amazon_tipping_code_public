@@ -44,11 +44,11 @@ The expected part counts are 50 amphibian, 28 mammal, 24 reptile-part-1, 23 rept
 
 | Location | Data | Produced by | Downstream use |
 | --- | --- | --- | --- |
-| `$AMAZON_DATA_DIR/intermediate/04_rasterized_species/{amphibians,mammals,reptiles}/*.tif` | Binary non-bird presence rasters | `rasterize_species.R` | 05, 06 |
-| `$AMAZON_DATA_DIR/intermediate/04_rasterized_species/birds/{resident,breeding,non_breeding}/*.tif` | Binary bird presence rasters by seasonality | `rasterize_species.R` | 05, 06 |
-| `$AMAZON_DATA_DIR/intermediate/04_rasterized_species/**/Selected_species_raster_path_*.rds` | Named species-to-raster-path lookup tables | `create_species_raster_path.R` | 05, 06 |
-| `$AMAZON_DATA_DIR/intermediate/04_rasterized_species/full_species_list_amazon_updated.csv` | Species metadata, presence-cell count, rasterized area, and size class | `create_full_species_list_with_classes.R` | 06 |
-| `$AMAZON_OUTPUT_DIR/04_rasterized_species/slurm/{batch_scripts,stdout,stderr}/` | Generated Slurm scripts and job logs | Submission workflow | Cluster reproducibility |
+| `$AMAZON_DATA_DIR/intermediate/04_rasterize_species/rasterized_species/{amphibians,mammals,reptiles}/*.tif` | Binary non-bird presence rasters | `rasterize_species.R` | 05, 06 |
+| `$AMAZON_DATA_DIR/intermediate/04_rasterize_species/rasterized_species/birds/{resident,breeding,non_breeding}/*.tif` | Binary bird presence rasters by seasonality | `rasterize_species.R` | 05, 06 |
+| `$AMAZON_DATA_DIR/intermediate/04_rasterize_species/rasterized_species/**/Selected_species_raster_path_*.rds` | Named species-to-raster-path lookup tables | `create_species_raster_path.R` | 05, 06 |
+| `$AMAZON_DATA_DIR/intermediate/04_rasterize_species/full_species_list_amazon_updated.csv` | Species metadata, presence-cell count, rasterized area, and size class | `create_full_species_list_with_classes.R` | 06 |
+| `$AMAZON_OUTPUT_DIR/04_rasterize_species/slurm/{batch_scripts,stdout,stderr}/` | Generated Slurm scripts and job logs | Submission workflow | Cluster reproducibility |
 
 No diagnostic plots are created in this step.
 

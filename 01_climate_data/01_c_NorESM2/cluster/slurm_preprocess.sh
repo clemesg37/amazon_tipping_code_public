@@ -2,7 +2,7 @@
 
 #SBATCH --qos=short
 #SBATCH --job-name=amazon
-#SBATCH --account=impactee
+#SBATCH --account=account_name
 #SBATCH --output=slurm-%j.out
 #SBATCH --error=slurm-%j.err
 

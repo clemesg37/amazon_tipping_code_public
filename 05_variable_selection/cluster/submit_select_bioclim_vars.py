@@ -7,10 +7,10 @@ TEMPLATE = SCRIPT_DIR / "slurm_template.sh"
 
 # Number of species in each type and size class. Submit one manageable subgroup at a time.
 SPECIES_COUNTS = {
-    ("amphibians", "supersmall"): 47, ("amphibians", "small"): 51, ("amphibians", "medium"): 45, ("amphibians", "large"): 49, ("amphibians", "superlarge"): 18,
+    ("amphibians", "supersmall"): 46, ("amphibians", "small"): 51, ("amphibians", "medium"): 45, ("amphibians", "large"): 49, ("amphibians", "superlarge"): 18,
     ("mammals", "supersmall"): 87, ("mammals", "small"): 73, ("mammals", "medium"): 62, ("mammals", "large"): 69, ("mammals", "superlarge"): 92,
     ("reptiles", "supersmall"): 32, ("reptiles", "small"): 47, ("reptiles", "medium"): 44, ("reptiles", "large"): 79, ("reptiles", "superlarge"): 52,
-    ("birds_resident", "supersmall"): 232, ("birds_resident", "small"): 200, ("birds_resident", "medium"): 199, ("birds_resident", "large"): 283, ("birds_resident", "superlarge"): 187,
+    ("birds_resident", "supersmall"): 233, ("birds_resident", "small"): 202, ("birds_resident", "medium"): 193, ("birds_resident", "large"): 276, ("birds_resident", "superlarge"): 170,
 }
 
 # Edit these values to submit another taxon/size-class subgroup.

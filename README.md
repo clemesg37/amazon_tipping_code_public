@@ -1,4 +1,4 @@
-# Amazon tipping amplifies biodiversity loss through teleconnected precipitation declines
+# Amazon tipping amplifies biodiversity risk through teleconnected precipitation declines
 
 Clemens Giesen<sup>1</sup>; Nico Wunderling<sup>1,2,3</sup>; Damaris Zurell<sup>4</sup>; Leonie Wenz<sup>1,5</sup>; Maximilian Kotz<sup>1,6,7,*</sup>
 
@@ -12,7 +12,7 @@ Clemens Giesen<sup>1</sup>; Nico Wunderling<sup>1,2,3</sup>; Damaris Zurell<sup>
 <sup>*</sup> Corresponding author
 
 
-This repository contains the analysis and figure-generation code for the paper *Amazon tipping advances and amplifies biodiversity loss through teleconnected precipitation declines*.
+This repository contains the analysis and figure-generation code for the paper *Amazon tipping amplifies biodiversity risk through teleconnected precipitation declines*.
 
 ## Repository overview
 
@@ -27,7 +27,7 @@ The workflow prepares climate inputs, species ranges, bioclimatic predictors, sp
 | `05_variable_selection/` | Species-specific bioclimatic-variable selection | HPC |
 | `06_SDM/` | Monte Carlo design, SDM fitting, evaluation, projection, and suitable-area summaries | HPC |
 | `07_postprocess_data/` | Reusable climate, species-richness, deforestation, and SDM summary products | HPC and local preprocessing |
-| `08_figures/` | Local notebooks that generate the manuscript figures | Local |
+| `08_figures/` | Main-figure notebooks and selected HPC-based SI calculations | Local and HPC |
 
 Every numbered workflow folder has its own README. These describe the folder's scope, scripts and their purposes, important calculations, detailed input/output tables, data locations, and any special provenance or execution notes.
 
@@ -44,7 +44,7 @@ export AMAZON_DATA_DIR=/path/to/amazon_data
 export AMAZON_OUTPUT_DIR=/path/to/amazon_cluster_artifacts
 ```
 
-`AMAZON_DATA_DIR` stores raw data and reusable derived data. `AMAZON_OUTPUT_DIR` stores generated batch scripts, standard output, standard error, and diagnostic plots. This keeps transient cluster artifacts outside the public code repository. The generic Slurm files intentionally contain no account, partition, or personal paths; add the site-specific module/environment activation commands required by the target HPC.
+`AMAZON_DATA_DIR` stores raw data and reusable derived data. `AMAZON_OUTPUT_DIR` stores generated batch scripts, standard output, standard error, and diagnostic plots. This keeps transient cluster artifacts outside the public code repository. Slurm templates use a neutral `account_name` placeholder where an account is required; replace it and add the site-specific module or environment activation commands required by the target HPC.
 
 The full directory layout for both roots is defined in [CONFIGURATION.md](CONFIGURATION.md). Create the roots, export the variables, and use the documented subfolders. Scripts create their own output directories where appropriate.
 
@@ -75,11 +75,7 @@ See the README in the relevant numbered folder for exact inputs, outputs, access
 4. Run the numbered HPC steps in order when reproducing the full analysis.
 5. For figure-only reproduction, extract any companion large-data archives into their documented local folders, then run the notebook for the desired figure in `08_figures/`.
 
-## Remaining release tasks
-
-- Document the precipitation-data component in step 01 (ask Max).
-- Document the source and transformation history of the deforestation data (ask Nico).
-- Add appendix-figure code.
+## Remaining tasks
 - Create Conda environment specifications for the HPC and local workflows, including all package names and package versions.
 
 ## Configuration and folder-level documentation

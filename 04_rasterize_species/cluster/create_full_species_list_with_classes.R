@@ -4,7 +4,7 @@ library(dplyr)
 DATA_ROOT <- Sys.getenv("AMAZON_DATA_DIR")
 if (DATA_ROOT == "") stop("Set AMAZON_DATA_DIR before running this script.")
 
-raster_root <- file.path(DATA_ROOT, "intermediate", "04_rasterized_species")
+raster_root <- file.path(DATA_ROOT, "intermediate", "04_rasterize_species", "rasterized_species")
 base_paths <- list(
   amphibians = file.path(raster_root, "amphibians"),
   mammals = file.path(raster_root, "mammals"),
@@ -99,7 +99,7 @@ final_data <- results %>%
 # Optional check
 print(table(final_data$class, useNA = "ifany"))
 
-output_path <- file.path(raster_root, "full_species_list_amazon_updated.csv")
+output_path <- file.path(dirname(raster_root), "full_species_list_amazon_updated.csv")
 write.csv(final_data, output_path, row.names = FALSE)
 
 print(paste("Final species list with classes saved to:", output_path))

@@ -6,8 +6,8 @@ from pathlib import Path
 import xarray as xr
 
 DATA_ROOT = Path(os.environ["AMAZON_DATA_DIR"])
-RAW_ERA5_DIR = DATA_ROOT / "raw" / "era5"
-HISTORICAL_DIR = DATA_ROOT / "intermediate" / "climate" / "historical"
+RAW_ERA5_DIR = DATA_ROOT / "raw" / "01_a_era5"
+HISTORICAL_DIR = DATA_ROOT / "intermediate" / "01_a_historical"
 LOCAL_VALIDATION_DIR = HISTORICAL_DIR / "local_validation"
 LOCAL_VALIDATION_DIR.mkdir(parents=True, exist_ok=True)
 

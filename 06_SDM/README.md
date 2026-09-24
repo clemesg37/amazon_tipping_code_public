@@ -26,10 +26,10 @@ For birds, this workflow models only the resident-bird group (`birds_resident`).
 
 | Location | Data | Producer/source | Used by |
 | --- | --- | --- | --- |
-| `$AMAZON_DATA_DIR/intermediate/04_rasterized_species/full_species_list_amazon_updated.csv` | Species metadata, presence-cell count, rasterized area, and class | 04 | Select species for a job |
-| `$AMAZON_DATA_DIR/intermediate/04_rasterized_species/**/Selected_species_raster_path_*.rds` | Species-to-presence-raster lookup tables | 04 | Presence rasters |
-| `$AMAZON_DATA_DIR/intermediate/05_selected_bioclimatic_variables/data/<species>_historic.tif` | Historic species-specific bioclimatic stack | 05 | SDM calibration and training |
-| `$AMAZON_DATA_DIR/intermediate/05_selected_bioclimatic_variables/data/<species>_<ssp>_<tip>_<deforestation>_<period>.tif` | Future species-specific bioclimatic stacks | 05 | Projections |
+| `$AMAZON_DATA_DIR/intermediate/04_rasterize_species/full_species_list_amazon_updated.csv` | Species metadata, presence-cell count, rasterized area, and class | 04 | Select species for a job |
+| `$AMAZON_DATA_DIR/intermediate/04_rasterize_species/rasterized_species/**/Selected_species_raster_path_*.rds` | Species-to-presence-raster lookup tables | 04 | Presence rasters |
+| `$AMAZON_DATA_DIR/intermediate/05_variable_selection/data/<species>_historic.tif` | Historic species-specific bioclimatic stack | 05 | SDM calibration and training |
+| `$AMAZON_DATA_DIR/intermediate/05_variable_selection/data/<species>_<ssp>_<tip>_<deforestation>_<period>.tif` | Future species-specific bioclimatic stacks | 05 | Projections |
 | `$AMAZON_DATA_DIR/intermediate/01_c_noresm2/amazon_mask/amazon_mask.tif` | Amazon mask | 01c | Amazon-specific suitable area |
 | `$AMAZON_DATA_DIR/intermediate/06_sdm/mc_samples/MC_sample.csv` | 100-row MC projection design | `create_MC_samples.R` | Tipping projections |
 
@@ -52,6 +52,3 @@ For birds, this workflow models only the resident-bird group (`birds_resident`).
 3. Set `AMAZON_DATA_DIR` and `AMAZON_OUTPUT_DIR` as described in [CONFIGURATION.md](../CONFIGURATION.md).
 4. Set `SPECIES_TYPE`, `START_INDEX`, and `END_INDEX` in `submit_hp_tuning_blockCV.py` to a manageable subgroup, then submit on the HPC.
 
-## Software
-
-The SDM workflow uses `terra`, `sf`, `fuzzySim`, `biomod2`, `sp`, `stringr`, `s2`, `ggplot2`, `blockCV`, and `dplyr`. The submission script requires Python and Slurm (`sbatch`).
